@@ -1,81 +1,292 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
   <title>MCGOSH</title>
-  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      background: #000;
+      overflow: hidden;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .site {
+      position: relative;
+      width: 100vw;
+      height: 100dvh;
+      background: #000;
+      overflow: hidden;
+    }
+
+    /* THE ACTUAL HOUSE PHOTO */
+    .house {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+    }
+
+    /*
+      INVISIBLE CLICKABLE WINDOWS
+
+      These sit over the three middle windows.
+      Nothing is drawn over the photograph.
+    */
+    .window-link {
+      position: absolute;
+      z-index: 5;
+      display: block;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .window-left {
+      left: 29%;
+      top: 39%;
+      width: 13%;
+      height: 15%;
+    }
+
+    .window-middle {
+      left: 43%;
+      top: 38%;
+      width: 14%;
+      height: 16%;
+    }
+
+    .window-right {
+      left: 58%;
+      top: 38%;
+      width: 13%;
+      height: 16%;
+    }
+
+    /* FAST TRACK PLAYER */
+    .player {
+      position: absolute;
+      z-index: 10;
+      left: 20px;
+      right: 20px;
+      bottom: calc(18px + env(safe-area-inset-bottom));
+
+      padding: 14px 18px;
+
+      background: rgba(5, 5, 5, 0.92);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 22px;
+
+      color: white;
+
+      display: flex;
+      align-items: center;
+      gap: 14px;
+
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .play-button {
+      width: 54px;
+      height: 54px;
+      flex: 0 0 54px;
+
+      border-radius: 50%;
+      border: 1px solid #888;
+
+      background: transparent;
+      color: white;
+
+      font-size: 21px;
+      cursor: pointer;
+    }
+
+    .track {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .track-name {
+      margin-bottom: 9px;
+      font-size: 14px;
+      letter-spacing: 2px;
+    }
+
+    .progress {
+      width: 100%;
+      accent-color: #19e66b;
+    }
+
+    .time {
+      min-width: 85px;
+      text-align: right;
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      .player {
+        left: 18px;
+        right: 18px;
+        bottom: calc(18px + env(safe-area-inset-bottom));
+        padding: 12px 14px;
+      }
+
+      .play-button {
+        width: 48px;
+        height: 48px;
+        flex-basis: 48px;
+      }
+
+      .time {
+        min-width: 72px;
+        font-size: 12px;
+      }
+    }
+  </style>
 </head>
-<body class="home">
-  <main class="house-stage" aria-label="MCGOSH home">
-    <!-- The SVG keeps the clickable window areas locked to the photo at every screen size. -->
-    <svg class="house-scene"
-         viewBox="0 0 1208 1197"
-         preserveAspectRatio="xMidYMid slice"
-         role="img"
-         aria-label="House with three clickable middle windows">
-      <defs>
-        <filter id="cinematic">
-          <feColorMatrix type="matrix"
-            values="
-              0.64 0    0    0 0
-              0    0.70 0    0 0
-              0    0    0.78 0 0
-              0    0    0    1 0"/>
-          <feComponentTransfer>
-            <feFuncR type="gamma" amplitude="1" exponent="1.08" offset="0"/>
-            <feFuncG type="gamma" amplitude="1" exponent="1.08" offset="0"/>
-            <feFuncB type="gamma" amplitude="1" exponent="1.05" offset="0"/>
-          </feComponentTransfer>
-        </filter>
-        <linearGradient id="shade" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#000" stop-opacity=".22"/>
-          <stop offset="58%" stop-color="#000" stop-opacity=".08"/>
-          <stop offset="100%" stop-color="#000" stop-opacity=".38"/>
-        </linearGradient>
-      </defs>
 
-      <image href="assets/house.jpg"
-             width="1208"
-             height="1197"
-             preserveAspectRatio="none"
-             filter="url(#cinematic)" />
-      <rect width="1208" height="1197" fill="url(#shade)" pointer-events="none"/>
+<body>
 
-      <!-- Three center bay windows. All currently go to the same coming-soon page. -->
-      <a href="coming-soon.html" aria-label="Open music coming soon page">
-        <rect class="window-hotspot" x="355" y="458" width="78" height="125" rx="4"/>
-      </a>
-      <a href="coming-soon.html" aria-label="Open music coming soon page">
-        <rect class="window-hotspot" x="437" y="450" width="82" height="133" rx="4"/>
-      </a>
-      <a href="coming-soon.html" aria-label="Open music coming soon page">
-        <rect class="window-hotspot" x="522" y="444" width="84" height="139" rx="4"/>
-      </a>
-    </svg>
-  </main>
+  <main class="site">
 
-  <section class="player" aria-label="Music player">
-    <button class="play-button" id="playButton" type="button" aria-label="Play">
-      <span id="playIcon">▶</span>
-    </button>
+    <img
+      class="house"
+      src="assets/house.jpg"
+      alt="MCGOSH"
+    >
 
-    <div class="player-middle">
-      <div class="track-line">
-        <span id="trackName">Fast Track</span>
-        <span id="time">0:00 / 0:00</span>
+    <!-- THREE CLICKABLE MIDDLE WINDOWS -->
+    <a
+      class="window-link window-left"
+      href="coming-soon.html"
+      aria-label="Music coming soon"
+    ></a>
+
+    <a
+      class="window-link window-middle"
+      href="coming-soon.html"
+      aria-label="Music coming soon"
+    ></a>
+
+    <a
+      class="window-link window-right"
+      href="coming-soon.html"
+      aria-label="Music coming soon"
+    ></a>
+
+    <!-- FAST TRACK -->
+    <div class="player">
+
+      <button
+        class="play-button"
+        id="playButton"
+        type="button"
+        aria-label="Play Fast Track"
+      >
+        ▶
+      </button>
+
+      <div class="track">
+        <div class="track-name">Fast Track</div>
+
+        <input
+          class="progress"
+          id="progress"
+          type="range"
+          min="0"
+          max="100"
+          value="0"
+        >
       </div>
-      <input id="seek" class="seek" type="range" min="0" max="100" value="0" aria-label="Song position" />
+
+      <div class="time" id="time">
+        0:00 / 0:00
+      </div>
+
     </div>
 
-    <button class="mute-button" id="muteButton" type="button" aria-label="Mute">🔊</button>
+    <audio
+      id="audio"
+      preload="metadata"
+      src="assets/song.mp3"
+    ></audio>
 
-    <!-- Drop your song into assets/song.mp3 -->
-    <audio id="audio" preload="metadata">
-      <source src="assets/song.mp3" type="audio/mpeg" />
-    </audio>
-  </section>
+  </main>
 
-  <script src="app.js"></script>
+  <script>
+    const audio = document.getElementById("audio");
+    const playButton = document.getElementById("playButton");
+    const progress = document.getElementById("progress");
+    const time = document.getElementById("time");
+
+    function formatTime(seconds) {
+      if (!Number.isFinite(seconds)) return "0:00";
+
+      const minutes = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60)
+        .toString()
+        .padStart(2, "0");
+
+      return `${minutes}:${secs}`;
+    }
+
+    playButton.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
+
+    audio.addEventListener("play", () => {
+      playButton.textContent = "❚❚";
+    });
+
+    audio.addEventListener("pause", () => {
+      playButton.textContent = "▶";
+    });
+
+    audio.addEventListener("loadedmetadata", () => {
+      time.textContent =
+        `0:00 / ${formatTime(audio.duration)}`;
+    });
+
+    audio.addEventListener("timeupdate", () => {
+      if (audio.duration) {
+        progress.value =
+          (audio.currentTime / audio.duration) * 100;
+
+        time.textContent =
+          `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+      }
+    });
+
+    progress.addEventListener("input", () => {
+      if (audio.duration) {
+        audio.currentTime =
+          (progress.value / 100) * audio.duration;
+      }
+    });
+  </script>
+
 </body>
 </html>
