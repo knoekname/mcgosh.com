@@ -1,0 +1,170 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: #000;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body.home {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.house-stage {
+  position: fixed;
+  inset: 0;
+  background: #000;
+}
+
+.house-scene {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.window-hotspot {
+  fill: transparent;
+  cursor: pointer;
+  transition: fill .18s ease, stroke .18s ease;
+  stroke: transparent;
+  stroke-width: 4;
+}
+
+/* Invisible by default. On computers, a very subtle green cue appears on hover. */
+@media (hover: hover) and (pointer: fine) {
+  .window-hotspot:hover {
+    fill: rgba(37, 255, 110, 0.06);
+    stroke: rgba(37, 255, 110, 0.35);
+  }
+}
+
+.window-hotspot:focus {
+  outline: none;
+  fill: rgba(37, 255, 110, 0.08);
+  stroke: rgba(37, 255, 110, 0.55);
+}
+
+.player {
+  position: fixed;
+  left: max(16px, env(safe-area-inset-left));
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 20;
+
+  display: grid;
+  grid-template-columns: 52px 1fr 48px;
+  gap: 12px;
+  align-items: center;
+
+  padding: 12px 14px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 18px;
+  background: rgba(8,8,8,.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.play-button, .mute-button {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255,255,255,.45);
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.mute-button {
+  border: 0;
+  font-size: 20px;
+}
+
+.player-middle {
+  min-width: 0;
+}
+
+.track-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  letter-spacing: .08em;
+  color: rgba(255,255,255,.82);
+}
+
+#trackName {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#time {
+  white-space: nowrap;
+  color: rgba(255,255,255,.58);
+}
+
+.seek {
+  width: 100%;
+  accent-color: #32ff75;
+}
+
+body.coming-soon {
+  min-height: 100vh;
+  background: #000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.coming-soon main {
+  text-align: center;
+  padding: 24px;
+}
+
+.coming-soon h1 {
+  margin: 0;
+  color: #35ff78;
+  font-size: clamp(20px, 5vw, 52px);
+  font-weight: 400;
+  letter-spacing: clamp(.24em, 1.2vw, .48em);
+  line-height: 1.4;
+  text-shadow: 0 0 18px rgba(53,255,120,.18);
+}
+
+.back-link {
+  position: fixed;
+  top: max(18px, env(safe-area-inset-top));
+  left: max(18px, env(safe-area-inset-left));
+  color: rgba(255,255,255,.45);
+  text-decoration: none;
+  font-size: 28px;
+  line-height: 1;
+}
+
+@media (max-width: 520px) {
+  .player {
+    grid-template-columns: 46px 1fr 40px;
+    left: 10px;
+    right: 10px;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    gap: 8px;
+    padding: 10px 11px;
+    border-radius: 16px;
+  }
+
+  .play-button, .mute-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .track-line {
+    font-size: 10px;
+  }
+}
