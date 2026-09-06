@@ -1,15 +1,117 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Music Coming Soon — MCGOSH</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MCGOSH</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Courier New", monospace;
+      color: #39ff14;
+    }
+
+    #message {
+      width: 90%;
+      text-align: center;
+      font-size: clamp(24px, 7vw, 52px);
+      font-weight: bold;
+      line-height: 1.3;
+      text-shadow: 0 0 10px #39ff14;
+    }
+
+    .cursor::after {
+      content: "_";
+      animation: blink 0.7s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% {
+        opacity: 1;
+      }
+
+      51%, 100% {
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
-<body class="coming-soon">
-  <a class="back-link" href="index.html" aria-label="Back to house">←</a>
-  <main>
-    <h1>MUSIC COMING SOON</h1>
-  </main>
+
+<body>
+
+  <div id="message" class="cursor"></div>
+
+  <audio
+    id="teaser"
+    src="assets/window_teaser_52.25_to_73.0.mp3"
+    preload="auto"
+    autoplay>
+  </audio>
+
+  <script>
+    const message = document.getElementById("message");
+    const teaser = document.getElementById("teaser");
+
+    const firstSentence = "YOU'RE NOT SUPPOSED TO BE HERE.";
+    const secondSentence = "GO HOME!!!";
+
+    function wait(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function typeText(text, speed = 75) {
+      message.textContent = "";
+
+      for (const character of text) {
+        message.textContent += character;
+        await wait(speed);
+      }
+    }
+
+    async function runSequence() {
+      try {
+        await teaser.play();
+      } catch (error) {
+        // iPhone/Safari may block automatic audio in some situations.
+      }
+
+      await wait(500);
+
+      await typeText(firstSentence, 75);
+
+      await wait(1500);
+
+      message.textContent = "";
+
+      await wait(500);
+
+      await typeText(secondSentence, 100);
+
+      await wait(2000);
+
+      teaser.pause();
+
+      window.location.href = "index.html";
+    }
+
+    runSequence();
+  </script>
+
 </body>
 </html>
