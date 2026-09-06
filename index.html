@@ -161,11 +161,92 @@
         font-size: 12px;
       }
     }
+
+ /* MENU BUTTON */
+.menu-button {
+  position: fixed;
+  top: 18px;
+  left: 22px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.78);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.menu-button span {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+}
+
+.dropdown-menu {
+  position: fixed;
+  top: 84px;
+  left: 22px;
+  width: 178px;
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 13px;
+  padding: 8px 20px;
+  z-index: 1000;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s ease;
+}
+
+.dropdown-menu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 16px 4px;
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  letter-spacing: 4px;
+  font-family: Arial, sans-serif;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.dropdown-menu a:last-child {
+  border-bottom: none;
+} 
   </style>
 </head>
 
 <body>
+<!-- MENU BUTTON -->
+<button class="menu-button" id="menuButton" aria-label="Open menu">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
 
+<!-- DROPDOWN MENU -->
+<nav class="dropdown-menu" id="dropdownMenu">
+  <a href="#" onclick="return false;">MUSIC</a>
+  <a href="#" onclick="return false;">MERCH</a>
+  <a href="#" onclick="return false;">ABOUT</a>
+  <a href="#" onclick="return false;">CONTACT</a>
+</nav>
   <main class="site">
 
     <img
@@ -286,6 +367,22 @@
           (progress.value / 100) * audio.duration;
       }
     });
+
+    const menuButton = document.getElementById("menuButton");
+const dropdownMenu = document.getElementById("dropdownMenu");
+
+menuButton.addEventListener("click", function () {
+  dropdownMenu.classList.toggle("open");
+});
+
+document.addEventListener("click", function (event) {
+  if (
+    !menuButton.contains(event.target) &&
+    !dropdownMenu.contains(event.target)
+  ) {
+    dropdownMenu.classList.remove("open");
+  }
+});
   </script>
 
 </body>
