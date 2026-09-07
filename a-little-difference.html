@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>A Little Difference — MCGOSH</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .song-page {
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .song-title {
+      font-size: 24px;
+      font-weight: normal;
+      letter-spacing: 4px;
+      margin-bottom: 30px;
+    }
+
+    audio {
+      width: 100%;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 40px;
+      color: #888;
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 3px;
+    }
+
+    .back-link:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="song-page">
+
+    <div class="song-title">
+      A LITTLE DIFFERENCE
+    </div>
+
+    <audio controls preload="metadata">
+      <source src="assets/a-little-difference.mp3" type="audio/mpeg">
+    </audio>
+
+    <a class="back-link" href="index.html">
+      RETURN TO HOUSE
+    </a>
+
+  </main>
+
+</body>
+</html>
