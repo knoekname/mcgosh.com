@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Music — MCGOSH</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: #000;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+
+    .music-page {
+      width: min(92vw, 760px);
+      min-height: 100vh;
+      padding: 60px 0 55px;
+      text-align: center;
+    }
+
+    .page-label {
+      color: #666;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 5px;
+      margin-bottom: 45px;
+    }
+
+    .release-label {
+      color: #777;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 4px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(38px, 10vw, 64px);
+      letter-spacing: 2px;
+    }
+
+    .artist {
+      margin-top: 10px;
+      color: #888;
+      font-size: 14px;
+      letter-spacing: 5px;
+    }
+
+    .release-date {
+      margin-top: 30px;
+      color: #ccc;
+      font-size: 13px;
+      letter-spacing: 3px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 35px;
+    }
+
+    .button {
+      display: inline-block;
+      min-width: 155px;
+      padding: 15px 20px;
+      border: 1px solid #fff;
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .button.secondary {
+      background: transparent;
+      color: #fff;
+    }
+
+    .button:hover {
+      opacity: 0.75;
+    }
+
+    .countdown-area {
+      margin-top: 55px;
+      padding-top: 30px;
+      border-top: 1px solid #1c1c1c;
+    }
+
+    .countdown-label {
+      color: #555;
+      font-size: 10px;
+      font-weight: bold;
+      letter-spacing: 4px;
+      margin-bottom: 15px;
+    }
+
+    .countdown {
+      color: #aaa;
+      font-size: clamp(14px, 4vw, 19px);
+      letter-spacing: 2px;
+      line-height: 1.8;
+    }
+
+    .out-now {
+      display: none;
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 5px;
+    }
+
+    .future {
+      margin-top: 70px;
+      color: #333;
+      font-size: 10px;
+      letter-spacing: 4px;
+    }
+
+    .back-home {
+      display: inline-block;
+      margin-top: 65px;
+      color: #666;
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 3px;
+    }
+
+    .back-home:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="music-page">
+
+    <div class="page-label">MCGOSH MUSIC</div>
+
+    <div class="release-label">UPCOMING RELEASE</div>
+
+    <h1>BIG DIFFERENCE</h1>
+
+    <div class="artist">MCGOSH</div>
+
+    <div class="release-date">
+      SEPTEMBER 25, 2026
+    </div>
+
+    <div class="buttons">
+
+      <a
+        class="button"
+        href="https://distrokid.com/hyperfollow/mcgosh/big-difference"
+        target="_blank"
+        rel="noopener noreferrer">
+        PRE-SAVE
+      </a>
+
+      <a
+        class="button secondary"
+        href="big-difference.html">
+        WATCH PROMO
+      </a>
+
+    </div>
+
+    <div class="countdown-area">
+
+      <div class="countdown-label" id="countdownLabel">
+        RELEASES IN
+      </div>
+
+      <div class="countdown" id="countdown">
+        <span id="days">00</span> DAYS ·
+        <span id="hours">00</span> HOURS ·
+        <span id="minutes">00</span> MINUTES ·
+        <span id="seconds">00</span> SECONDS
+      </div>
+
+      <div class="out-now" id="outNow">
+        OUT NOW
+      </div>
+
+    </div>
+
+    <div class="future">
+      MORE MUSIC COMING
+    </div>
+
+    <a class="back-home" href="index.html">
+      ← BACK HOME
+    </a>
+
+  </main>
+
+  <script>
+    const releaseDate =
+      new Date("2026-09-25T00:00:00-04:00").getTime();
+
+    function updateCountdown() {
+
+      const now = new Date().getTime();
+      const distance = releaseDate - now;
+
+      if (distance <= 0) {
+        document.getElementById("countdown").style.display = "none";
+        document.getElementById("countdownLabel").style.display = "none";
+        document.getElementById("outNow").style.display = "block";
+        return;
+      }
+
+      const days =
+        Math.floor(distance / (1000 * 60 * 60 * 24));
+
+      const hours =
+        Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) /
+          (1000 * 60 * 60)
+        );
+
+      const minutes =
+        Math.floor(
+          (distance % (1000 * 60 * 60)) /
+          (1000 * 60)
+        );
+
+      const seconds =
+        Math.floor(
+          (distance % (1000 * 60)) /
+          1000
+        );
+
+      document.getElementById("days").textContent =
+        String(days).padStart(2, "0");
+
+      document.getElementById("hours").textContent =
+        String(hours).padStart(2, "0");
+
+      document.getElementById("minutes").textContent =
+        String(minutes).padStart(2, "0");
+
+      document.getElementById("seconds").textContent =
+        String(seconds).padStart(2, "0");
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+
+</body>
+</html>
