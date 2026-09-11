@@ -16,40 +16,128 @@
       min-height: 100vh;
       background: #000;
       color: #fff;
-      font-family: Arial, sans-serif;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .song-page {
-      width: 90%;
-      max-width: 600px;
+      font-family: Arial, Helvetica, sans-serif;
       text-align: center;
     }
 
-    .song-title {
-      font-size: 24px;
-      font-weight: normal;
-      letter-spacing: 4px;
-      margin-bottom: 30px;
-    }
-
-    audio {
+    .page {
       width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 45px 18px 60px;
     }
 
-    .back-link {
-      display: inline-block;
-      margin-top: 40px;
+    .eyebrow {
       color: #888;
-      text-decoration: none;
-      font-size: 12px;
+      font-size: 13px;
+      letter-spacing: 5px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0 0 35px;
+      font-size: clamp(34px, 8vw, 64px);
       letter-spacing: 3px;
     }
 
-    .back-link:hover {
+    .video-wrap {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto 45px;
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: #111;
+      border-radius: 8px;
+    }
+
+    .release-label {
+      color: #777;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 4px;
+      margin-bottom: 10px;
+    }
+
+    .song-title {
+      margin: 0;
+      font-size: clamp(30px, 7vw, 52px);
+      letter-spacing: 2px;
+    }
+
+    .artist {
+      color: #aaa;
+      font-size: 17px;
+      letter-spacing: 5px;
+      margin-top: 8px;
+    }
+
+    .release-date {
+      margin-top: 25px;
+      font-size: 15px;
+      letter-spacing: 3px;
+      color: #ccc;
+    }
+
+    .drops-in {
+      margin-top: 45px;
+      color: #777;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 5px;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    .time-box {
+      width: 82px;
+      padding: 17px 5px;
+      border: 1px solid #333;
+      background: #080808;
+    }
+
+    .number {
+      display: block;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .label {
+      display: block;
+      margin-top: 7px;
+      color: #777;
+      font-size: 9px;
+      letter-spacing: 2px;
+    }
+
+    .released {
+      display: none;
+      margin-top: 30px;
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 4px;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 60px;
+      color: #777;
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 3px;
+    }
+
+    .back:hover {
       color: #fff;
     }
   </style>
@@ -57,21 +145,121 @@
 
 <body>
 
-  <main class="song-page">
+  <main class="page">
 
-    <div class="song-title">
-      BIG DIFFERENCE
+    <div class="eyebrow">MCGOSH PRESENTS</div>
+
+    <h1>FIRST RELEASE</h1>
+
+    <div class="video-wrap">
+      <video controls playsinline preload="metadata">
+        <source src="assets/Promo.01.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
     </div>
 
-    <audio controls preload="metadata">
-      <source src="assets/A%20Little%20Difference%20.mp3" type="audio/mpeg">
-    </audio>
+    <div class="release-label">THE FIRST SINGLE</div>
 
-    <a class="back-link" href="index.html">
-      RETURN HOME
+    <h2 class="song-title">BIG DIFFERENCE</h2>
+
+    <div class="artist">MCGOSH</div>
+
+    <div class="release-date">
+      SEPTEMBER 25, 2026
+    </div>
+
+    <div class="drops-in">DROPS IN</div>
+
+    <div class="countdown" id="countdown">
+
+      <div class="time-box">
+        <span class="number" id="days">00</span>
+        <span class="label">DAYS</span>
+      </div>
+
+      <div class="time-box">
+        <span class="number" id="hours">00</span>
+        <span class="label">HOURS</span>
+      </div>
+
+      <div class="time-box">
+        <span class="number" id="minutes">00</span>
+        <span class="label">MINUTES</span>
+      </div>
+
+      <div class="time-box">
+        <span class="number" id="seconds">00</span>
+        <span class="label">SECONDS</span>
+      </div>
+
+    </div>
+
+    <div class="released" id="released">
+      OUT NOW
+    </div>
+
+    <a class="back" href="index.html">
+      ← BACK TO MCGOSH.COM
     </a>
 
   </main>
+
+  <script>
+    const releaseDate =
+      new Date("2026-09-25T00:00:00-04:00").getTime();
+
+    function updateCountdown() {
+
+      const now = new Date().getTime();
+      const distance = releaseDate - now;
+
+      if (distance <= 0) {
+
+        document.getElementById("countdown").style.display = "none";
+        document.querySelector(".drops-in").style.display = "none";
+        document.getElementById("released").style.display = "block";
+
+        return;
+      }
+
+      const days =
+        Math.floor(distance / (1000 * 60 * 60 * 24));
+
+      const hours =
+        Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) /
+          (1000 * 60 * 60)
+        );
+
+      const minutes =
+        Math.floor(
+          (distance % (1000 * 60 * 60)) /
+          (1000 * 60)
+        );
+
+      const seconds =
+        Math.floor(
+          (distance % (1000 * 60)) /
+          1000
+        );
+
+      document.getElementById("days").textContent =
+        String(days).padStart(2, "0");
+
+      document.getElementById("hours").textContent =
+        String(hours).padStart(2, "0");
+
+      document.getElementById("minutes").textContent =
+        String(minutes).padStart(2, "0");
+
+      document.getElementById("seconds").textContent =
+        String(seconds).padStart(2, "0");
+    }
+
+    updateCountdown();
+
+    setInterval(updateCountdown, 1000);
+  </script>
 
 </body>
 </html>
