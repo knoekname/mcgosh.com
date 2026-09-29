@@ -121,7 +121,7 @@
     }
 
     .released {
-      display: none;
+      display: inline-block;
       margin-top: 30px;
       font-size: 24px;
       font-weight: bold;
@@ -147,9 +147,9 @@
 
   <main class="page">
 
-    <div class="eyebrow">MCGOSH PRESENTS</div>
+    <div class="eyebrow">MCGOSH</div>
 
-    <h1>FIRST RELEASE</h1>
+    <h1>BIG DIFFERENCE</h1>
 
     <div class="video-wrap">
       <video controls playsinline preload="metadata">
@@ -158,7 +158,7 @@
       </video>
     </div>
 
-    <div class="release-label">THE FIRST SINGLE</div>
+    <div class="release-label">OUT NOW</div>
 
     <h2 class="song-title">BIG DIFFERENCE</h2>
 
@@ -168,35 +168,14 @@
       SEPTEMBER 25, 2026
     </div>
 
-    <div class="drops-in">DROPS IN</div>
+ <a class="released" id="released"
+   href="https://distrokid.com/hyperfollow/mcgosh/big-difference"
+   target="_blank"
+   rel="noopener noreferrer">
+    LISTEN NOW
+</a>
 
-    <div class="countdown" id="countdown">
-
-      <div class="time-box">
-        <span class="number" id="days">00</span>
-        <span class="label">DAYS</span>
-      </div>
-
-      <div class="time-box">
-        <span class="number" id="hours">00</span>
-        <span class="label">HOURS</span>
-      </div>
-
-      <div class="time-box">
-        <span class="number" id="minutes">00</span>
-        <span class="label">MINUTES</span>
-      </div>
-
-      <div class="time-box">
-        <span class="number" id="seconds">00</span>
-        <span class="label">SECONDS</span>
-      </div>
-
-    </div>
-
-    <div class="released" id="released">
-      OUT NOW
-    </div>
+ 
 
     <a class="back" href="index.html">
       ← BACK HOME
@@ -204,62 +183,7 @@
 
   </main>
 
-  <script>
-    const releaseDate =
-      new Date("2026-09-25T00:00:00-04:00").getTime();
 
-    function updateCountdown() {
-
-      const now = new Date().getTime();
-      const distance = releaseDate - now;
-
-      if (distance <= 0) {
-
-        document.getElementById("countdown").style.display = "none";
-        document.querySelector(".drops-in").style.display = "none";
-        document.getElementById("released").style.display = "block";
-
-        return;
-      }
-
-      const days =
-        Math.floor(distance / (1000 * 60 * 60 * 24));
-
-      const hours =
-        Math.floor(
-          (distance % (1000 * 60 * 60 * 24)) /
-          (1000 * 60 * 60)
-        );
-
-      const minutes =
-        Math.floor(
-          (distance % (1000 * 60 * 60)) /
-          (1000 * 60)
-        );
-
-      const seconds =
-        Math.floor(
-          (distance % (1000 * 60)) /
-          1000
-        );
-
-      document.getElementById("days").textContent =
-        String(days).padStart(2, "0");
-
-      document.getElementById("hours").textContent =
-        String(hours).padStart(2, "0");
-
-      document.getElementById("minutes").textContent =
-        String(minutes).padStart(2, "0");
-
-      document.getElementById("seconds").textContent =
-        String(seconds).padStart(2, "0");
-    }
-
-    updateCountdown();
-
-    setInterval(updateCountdown, 1000);
-  </script>
 
 </body>
 </html>
